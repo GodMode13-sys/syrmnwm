@@ -1,18 +1,37 @@
 local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/MaterialLua/master/Module.lua"))()
 
+local Gui_Name = "CrackHub GUI"
+
 local X = Material.Load({
-    Title = "CrackHub GUI",
-    Style = 1,
-    SizeX = 300,
-    SizeY = 350,
+    Title = Gui_Name,
+    Style = 5,
+    SizeX = 350,
+    SizeY = 500,
     Theme = "Dark",
     ColorOverrides = {
-        MainFrame = Color3.fromRGB(0,10,0)
+        MainFrame = Color3.fromRGB(0,10,0),
+        NavBar = Color3.fromRGB(0, 125, 0),
+        NavBarAccent = Color3.fromRGB(0, 10, 0),
+        ButtonAccent = Color3.fromRGB(0, 125, 0),
+        Button = Color3.fromRGB(0,10,0),
+        SliderAccent = Color3.fromRGB(0, 125, 0),
+        Slider = Color3.fromRGB(0,10,0),
+        ToggleAccent = Color3.fromRGB(0, 125, 0),
+        Toggle = Color3.fromRGB(0,10,0),
+        TitleBarAccent = Color3.fromRGB(0, 125, 0),
+        TitleBar = Color3.fromRGB(0,10,0),
+        ColorPickerAccent = Color3.fromRGB(0, 125, 0),
+        ColorPicker = Color3.fromRGB(0,10,0),
+        Dropdown = Color3.fromRGB(0,10,0),
+        Banner = Color3.fromRGB(0,10,0),
+        BannerAccent = Color3.fromRGB(0,125,0),
+        DropdownAccent = Color3.fromRGB(0, 125, 0)
+        
     }
 })
 
 local Y = X.New({
-    Title = "Main",
+    Title = "Scripts",
         X.Banner{
         Text = "Please go to Universal and disable Noclip if you want to stop floating."
         }
@@ -22,6 +41,13 @@ local M = X.New({
     Title = "Universal"
 })
 
+local games = X.New({
+    Title = "Games"
+})
+
+local scriptsSecond = X.New({
+    Title = "Other Scripts"
+})
 
 local Z = X.New({
     Title = "Info"
@@ -184,6 +210,49 @@ local Q = Y.Button({
      end
  })
  
+  local ron = Y.Button({
+    Text = "Ron Quote",
+    Callback = function()
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("What's wrong with you? You lookin like a uuuhh umm you look like an uuuh you kinda look like an uhh ummm you kinda like an a unn uu uhh ummm wait you kinda uhhh hummnnn nnnn mmmmmmm hmmmm", "All")
+    end
+ })
+ 
+  local clicktp = Y.Button({
+     Text = "ClickTP Tool",
+     Callback = function()
+         local h = game.Players.LocalPlayer.Character.HumanoidRootPart
+         tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "ClickTP"
+tool.Activated:connect(function()
+    local player = game.Players.LocalPlayer
+        local m = player:GetMouse()
+         local mpos = m.Hit+Vector3.new(0,1,0)
+          mpos = CFrame.new(mpos.X,mpos.Y,mpos.Z)
+             h.CFrame = mpos
+end)
+tool.Parent = game.Players.LocalPlayer.Backpack
+     end
+     
+ })
+ 
+   local infoscripts = Y.Button({
+      Text = "Info",
+      Callback = function()
+      X.Banner
+      {
+          Text = "These are scripts officially made by me aka Goku Black/Proxo_101"
+      }
+      end
+  })
+ 
+ local energize = scriptsSecond.Button({
+     Text = "Energize Animation GUI",
+     Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/R1MgDiRX", true))()
+     end
+ }) 
+ 
  local noclip = M.Toggle({
      Text = "Noclip",
      Enabled = true,
@@ -200,14 +269,53 @@ local Q = Y.Button({
 end
  })
  
- 
 
  local V = Z.Button({
     Text = "Credits",
  Callback = function()
    X.Banner
    {
-       Text = "Made by Funny Killingtine#2547/killing27564"
+       Text = "Made by Goku Black#8597/Proxo_101, UI used is MaterialLua"
    }
         end            
         })
+    
+    local pulser = games.Button({
+        Text = "Miners Haven Auto Pulser",
+        Callback = function()
+        game:GetService("RunService").RenderStepped:connect(function()
+    if game.Players.LocalPlayer.PlayerGui.GUI.HUDBottom.Limit.Limit.Text == "Ore Limit: 250/250" then
+        game:GetService("ReplicatedStorage").Pulse:FireServer()
+    end
+    end)
+        end,
+    Menu = {
+        Important = function(self)
+            X.Banner({
+                Text = "Set Ore Limit to 250 before using."
+            })
+        end
+       }
+    })
+    
+local G = M.ColorPicker({
+    Text = "BackGround Colour",
+    Default = Default_Color,
+    Callback = function(Value)
+        game:GetService("CoreGui"):FindFirstChild(Gui_Name).MainFrame.ImageColor3 = Color3.fromRGB(Value.R * 255, Value.G * 255, Value.B * 255)
+    end,
+    Menu = {
+        Information = function(self)
+            X.Banner({
+                Text = "This changes the color of the GUI BackGround."
+            })
+        end
+    }
+})
+local StarterGui = game:GetService("StarterGui")
+	StarterGui:SetCore("ChatMakeSystemMessage", {
+		Text = "Hello, Welcome to CrackHub GUI! The official GUI for CrackHub, with scripts made by me or scripts made by others";
+		Color = Color3.fromRGB(0,125,0);
+		Font = Enum.Font.SourceSansBold;TextSize = 20
+	})
+	
